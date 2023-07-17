@@ -1,6 +1,7 @@
-const User = require('../models/User');
+const {User, Thought, Reaction} = require('../models/User');
 
 module.exports = {
+  //get all users
   async getUsers(req, res) {
     try {
       const users = await User.find();
@@ -9,6 +10,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  //get a single user by its id
   async getSingleUser(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId })
@@ -32,6 +34,8 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  // TODO: update a user by its id
+
   // delete a user
   async deleteUser (req, res) {
     try {
