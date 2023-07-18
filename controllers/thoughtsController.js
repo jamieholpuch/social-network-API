@@ -1,4 +1,4 @@
-const {Thought, User, Reaction} = require('../models/Thought');
+const {Thought, User} = require('../models');
 
 module.exports = {
   //get all thoughts
@@ -7,7 +7,7 @@ module.exports = {
       const thoughts = await Thought.find();
       res.json(thoughts);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     }
   },
   //get single thought by id
@@ -28,7 +28,7 @@ module.exports = {
     try {
       const thoughts = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
-        { _id: req.body.userId },
+        { _id: req.params.userId },
         { $addToSet: { thoughts: thoughts._id } },
         { new: true }
       );
@@ -42,7 +42,7 @@ module.exports = {
       res.json('Created the thought');
     } catch (err) {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     }
   },
   //update a thought by its id
@@ -121,7 +121,7 @@ module.exports = {
         return res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      res.json(video);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err);
     }

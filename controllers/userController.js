@@ -1,4 +1,4 @@
-const {User, Thought, Reaction} = require('../models/User');
+const {User, Thought} = require('../models');
 
 module.exports = {
   //get all users
@@ -7,7 +7,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     }
   },
   //get a single user by its id
@@ -35,7 +35,14 @@ module.exports = {
     }
   },
   // TODO: update a user by its id
-
+  // async updateUser(req, res) {
+  //   try {
+  //     const dbUserData = await User.findOneAndUpdate(req.body);
+  //     res.json(dbUserData);
+  //   } catch (err) {
+  //     res.status(500).json(err);
+  //   }
+  // },
   // delete a user
   async deleteUser (req, res) {
     try {
